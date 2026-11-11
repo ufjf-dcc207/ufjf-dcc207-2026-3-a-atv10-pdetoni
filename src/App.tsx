@@ -1,9 +1,11 @@
 import './App.css'
+import Garrafa from './Garrafa'
 
-function App() {
+export default function App() {
 
   return (
+    <Garrafa/>
   )
 }
 
-export default App
+
