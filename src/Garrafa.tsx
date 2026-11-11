@@ -1,11 +1,19 @@
 import type { GarrafaType } from "./types";
+import './Garrafa.css'
 
-export default function Garrafa(){
+type GarrafaProps = {
+    garrafa: GarrafaType
+}
+
+export default function Garrafa({garrafa}:GarrafaProps){
     return(
-        <section>
-            <dd>Teste</dd>
-            <dl>Teste</dl>
-        </section>
+        <div className="garrafa">
+            <dt>ID:</dt>
+            <dd>{garrafa.id}</dd>
+
+            <dt>Volume</dt>
+            <dd>{garrafa.volume}</dd>
+        </div>
     
     )
 }

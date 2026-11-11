@@ -1,0 +1,11 @@
+.garrafa{
+    display: grid;
+    gap: 2px;
+    grid-template-columns: 2fr 1fr;
+    border: 1px solid black;
+    width: 350px;
+    padding: 4px;
+    dt {
+        font-weight: bolder;
+    }
+}
