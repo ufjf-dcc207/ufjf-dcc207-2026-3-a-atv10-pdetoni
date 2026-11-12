@@ -1,27 +1,33 @@
-import { createContext, useReducer, type ReactNode } from "react"
+import { createContext, useReducer, type ReactNode, type Dispatch } from "react"
 import type { AcaoGarrafa } from "./garrafaReducer";
-import {} from "react";
-import React from "react";
 import garrafaReducer from "./garrafaReducer";
 import type { GarrafaType } from "./types";
 
-const data: Array<GarrafaType> = [
-
+export const data: Array<GarrafaType> = [
+    { id: "g1", volume: 3, cores: ["Vermelho", "Amarelo", "Verde"] },
+    { id: "g2", volume: 3, cores: ["Vermelho", "Verde", "Amarelo"] },
+    { id: "g3", volume: 3, cores: [] },
+    { id: "g4", volume: 3, cores: [] }
 ]
 
-export const GarrafaContext = createContext<Array<GarrafaType[]>>([]);
-export const GarrafaDispatcherContext = createContext<React.Dispatch<AcaoGarrafa | null> (null);
+export const GarrafaContext = createContext<Array<GarrafaType>>([]);
+export const GarrafaDispatcherContext = createContext<Dispatch<AcaoGarrafa> | null>(null);
 
-export function GarrafaProvider(children: ReactNode){
+type GarrafaContextProps = {
+    children: ReactNode
+}
 
-    const [garrafas, dispacher] = useReducer(garrafaReducer, data);
+export function GarrafaProvider({ children }: GarrafaContextProps) {
 
-    <GarrafaContext value={garrafas}>
-        <GarrafaDispatcherContext value={dispacher}>
-            {children}
-        </GarrafaDispatcherContext>
-    </GarrafaContext>
+    const [garrafas, dispacher] = useReducer(garrafaReducer, structuredClone(data));
 
+    return (
+        <GarrafaContext value={garrafas}>
+            <GarrafaDispatcherContext value={dispacher}>
+                {children}
+            </GarrafaDispatcherContext>
+        </GarrafaContext>
+    )
 
 }
 

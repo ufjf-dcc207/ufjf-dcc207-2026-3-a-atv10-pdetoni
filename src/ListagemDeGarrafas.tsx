@@ -1,28 +1,49 @@
 import { useContext, useState } from "react";
-import type { GarrafaType } from "./types";
-import { GarrafaContext } from "./GarrafaContext";
+import { GarrafaContext, GarrafaDispatcherContext } from "./GarrafaContext";
 import Garrafa from "./Garrafa";
 
-export default function ListagemDeGarrafas(){
+export default function ListagemDeGarrafas() {
 
     const garrafas = useContext(GarrafaContext);
-    const [criterioOrdenacao, setCriterio] = useState("cor");
+    const dispacher = useContext(GarrafaDispatcherContext)!;
 
-    function setOrdenacao(evento){
-        setCriterio(evento.target.value);
+    const [origemId, setOrigemId] = useState<string | null>(null);
+
+    function tratarClique(garrafaId: string) {
+
+        if (origemId === null) {
+            setOrigemId(garrafaId)
+            return;
+        }
+
+        if (origemId === garrafaId) {
+            setOrigemId(null)
+            return;
+        }
+
+        dispacher({ type: "transferir", origemId: origemId, destinoId: garrafaId });
+        setOrigemId(null);
+
     }
 
-    return(
+    return (
         <>
-        <select onChange={setOrdenacao}>
-                <option value="cor">Cor</option>
-                <option value="id">ID</option>
-            </select>
+            <div style={{ display: "flex", gap: "20px", justifyContent: "center", padding: "20px" }}>
+                {garrafas.map(g => (
+                    <Garrafa
+                        key={g.id}
+                        garrafa={g}
+                        selecionada={g.id === origemId}
+                        aoClicar={() => tratarClique(g.id)}
+                    />
+                ))}
 
-        {garrafas.sort((x,y)=> (x as any)[criterioOrdenacao] - (y as any)[criterioOrdenacao])
-        .map(p=> <Garrafa garrafa={p} key={p.id}/>)}
+            </div>
+
+            <button onClick={() => dispacher({ type: "reiniciar" })}>Reiniciar</button>
+
         </>
-        
+
     )
 
 }

@@ -2,18 +2,22 @@ import type { GarrafaType } from "./types";
 import './Garrafa.css'
 
 type GarrafaProps = {
-    garrafa: GarrafaType
+    garrafa: GarrafaType,
+    selecionada: boolean,
+    aoClicar: () => void;
+
 }
 
-export default function Garrafa({garrafa}:GarrafaProps){
-    return(
-        <div className="garrafa">
-            <dt>ID:</dt>
-            <dd>{garrafa.id}</dd>
+export default function Garrafa({ garrafa, selecionada, aoClicar }: GarrafaProps) {
 
-            <dt>Volume</dt>
-            <dd>{garrafa.volume}</dd>
+    return (
+        <div className={`garrafa ${selecionada ? "selecionada" : ""}`} onClick={aoClicar}>
+            {garrafa.cores.map((cor, index) => (
+                <div key={index}
+                    className={`camada ${cor.toLowerCase()}`} />
+            ))}
         </div>
-    
+
+
     )
 }

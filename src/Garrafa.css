@@ -1,11 +1,46 @@
-.garrafa{
-    display: grid;
-    gap: 2px;
-    grid-template-columns: 2fr 1fr;
-    border: 1px solid black;
-    width: 350px;
+/* O tubo/garrafa */
+.garrafa {
+    width: 60px;
+    height: 150px;
+    border: 3px solid #333;
+    border-top: none;
+    /* aberto em cima como um tubo */
+    border-radius: 0 0 20px 20px;
+    /* fundo arredondado */
+    display: flex;
+    flex-direction: column-reverse;
+    /* empilha do fundo para a boca */
     padding: 4px;
-    dt {
-        font-weight: bolder;
-    }
+    gap: 2px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Quando selecionada, dá um destaque (ex: sobe um pouquinho ou brilha) */
+.selecionada {
+    transform: translateY(-15px);
+    border-color: #3498db;
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.8);
+}
+
+/* Cada camada de cor */
+.camada {
+    width: 100%;
+    height: 30%;
+    /* para caber 3 camadas */
+    border-radius: 4px;
+}
+
+/* As cores que você definiu no type Cores */
+.camada.verde {
+    background-color: #2ecc71;
+}
+
+.camada.amarelo {
+    background-color: #f1c40f;
+}
+
+.camada.vermelho {
+    background-color: #e74c3c;
 }
